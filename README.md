@@ -1,13 +1,14 @@
 # IRA Purchase Request Automator
-Hello, wayward traveler!If you've somehow stumbled upon this in your random travels of the internet,
-this repository is completely useless to you! Move along and happy travels :D
+Hello, wayward traveler! If you've somehow stumbled upon this in your random
+travels of the internet, this repository is completely useless to you! Move
+along and happy travels :D
 
 If you're an officer of a student organization at Cal State LA which receives
 funding from the Department of ECST under IRA allocations, welcome! If somehow
 you fit that bill **AND** randomly stumbled upon this repository... how?
 
 ## Preface
-Anyone who's filled out an IRA purchase request  form knows how much of a
+Anyone who's filled out an IRA purchase request form knows how much of a
 hassle it can be, as copying every product number, quantity and cost,
 description and whatnot to multiple different PDFs for sending off is a
 tedious task, and one it's suprising hasn't been streamlined before. Why
@@ -40,7 +41,9 @@ Excel and then export the sheet to a CSV file. It is important to include the
 correct header no matter which software you use, so an example file for
 Google Sheets can be found [here](https://docs.google.com/spreadsheets/d/1C_caJ13kP4k8Shic1FmBr4MGKgDgp2dFIQGbyo4OsA0/edit?usp=sharing).
 Further items should be added as additional rows. Do not delete the header
-(row 1). Your sheet can then be exported as a CSV using your software's
+(row 1). Do not change any of the header column titles either! The ability to
+handle different table layouts and column names will be added in a later 
+version. Your sheet can then be exported as a CSV using your software's
 specific context menus. For Google Sheets, this is under File->Download.
 
 You're now ready to use the tool! Open a terminal and navigate to the
