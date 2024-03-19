@@ -3,17 +3,25 @@ from csv import DictReader
 from argparse import ArgumentParser
 import os
 import logging
+from datetime import datetime
 
 tax_rate = 0.0725
 
 def make_purchase_requests(input_file: str, template_file: str, lines_per: int = 15):
-    filename_no_ext = os.path.basename(input_file.replace('\\', '/')).split('.')[0]
     blank_pdf = PdfReader(template_file)
 
     shipping = float(input('Enter the shipping cost: '))
 
+    vendor = str(blank_pdf.get_form_text_fields()['Vendor Name']).strip().lower().replace(' ', '_')
+
+    if not vendor:
+        raise ValueError('Vendor name not found in form fields')
+
+    filename_prefix = f"{datetime.today().strftime('%Y-%m-%d')}_{vendor}-purchase-request"
+
+    blank_pdf = PdfReader(template_file)
+
     logging.debug(f'Input file: {input_file}')
-    logging.debug(f'Filename no ext: {filename_no_ext}')
 
     with open(input_file, 'r') as file:
         input_csv = list(DictReader(file))
@@ -57,12 +65,12 @@ def make_purchase_requests(input_file: str, template_file: str, lines_per: int =
             'Act Total': f"{(sum * (1.0 + tax_rate) + this_item_shipping):.2f}",
         }, auto_regenerate=True)
 
-        output_pdf.write(f'{filename_no_ext}_{i+1}.pdf')
+        output_pdf.write(f"{filename_prefix}_{i+1}.pdf")
 
 def main():
     parser = ArgumentParser(description='Make purchase requests from a CSV file')
-    parser.add_argument('input_file', help='The input CSV file')
     parser.add_argument('template_file', help='The template PDF file')
+    parser.add_argument('input_file', help='The input CSV file')
     parser.add_argument('--lines', help='The number of lines per purchase request', type=int, default=15)
     parser.add_argument('--quiet', action='store_true', help='Suppress logging output')
     parser.add_argument('--verbose', action='store_true', help='Print verbose logging output')
